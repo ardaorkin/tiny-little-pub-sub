@@ -6,18 +6,31 @@ This project contains two WebSocket servers: a publisher server and a consumer s
 
 ```
 websocket-server/
-├── consumerServer.js
-├── publisherServer.js
-├── server.js
-├── utils.js
+├── consumerServer.ts
+├── publisherServer.ts
+├── server.ts
+├── utils.ts
+├── .env
 └── README.md
 ```
 
-- `consumerServer.js`: Contains the logic for the consumer WebSocket server.
-- `publisherServer.js`: Contains the logic for the publisher WebSocket server.
-- `server.js`: Entry point of the application that initializes both WebSocket servers.
-- `utils.js`: Utility functions for logging with timestamps.
+- `consumerServer.ts`: Contains the logic for the consumer WebSocket server.
+- `publisherServer.ts`: Contains the logic for the publisher WebSocket server.
+- `server.ts`: Entry point of the application that initializes both WebSocket servers.
+- `utils.ts`: Utility functions for logging with timestamps.
+- `.env`: Environment variables for configuration.
 - `README.md`: This file.
+
+## Project Graph
+
+```mermaid
+graph TD;
+    A[Publisher Client] -->|Sends Message| B[Publisher Server]
+    B -->|Broadcasts Message| C[Consumer Server]
+    C -->|Delivers Message| D[Consumer Client]
+    C -->|Delivers Message| E[Consumer Client]
+    C -->|Delivers Message| F[Consumer Client]
+```
 
 ## Purpose
 
@@ -42,30 +55,19 @@ The consumer server listens on port 8080 and accepts connections from clients th
    npm install
    ```
 
+3. Create a `.env` file and set the ports:
+   ```sh
+   echo "CONSUMER_PORT=8080" > .env
+   echo "PUBLISHER_PORT=8081" >> .env
+   ```
+
 ## Usage
 
-### Starting the Consumer Server
+### Starting the Servers
 
-Start the consumer server on a specified port:
+Start the servers using the `start` script:
 ```sh
-node consumerServer.js <port>
-```
-
-Example:
-```sh
-node consumerServer.js 8081
-```
-
-### Starting the Publisher Server
-
-Start the publisher server on a specified port and connect it to the consumer server:
-```sh
-node publisherServer.js <port> <consumerServerPort>
-```
-
-Example:
-```sh
-node publisherServer.js 8080 8081
+npm start
 ```
 
 ## Logging
@@ -80,6 +82,10 @@ The servers handle the `SIGTERM` signal to gracefully shut down both the consume
 
 - The publisher server now ensures that the publisher client won't receive the message it sent.
 - Updated log messages to accurately reflect the number of consumers that received the broadcasted message.
+
+## Requirements
+
+- Node.js version 14.x or higher
 
 ## License
 
