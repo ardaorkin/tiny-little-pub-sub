@@ -1,17 +1,21 @@
-# WebSocket Server
+# Tiny Little Pub Sub
 
 This project contains two WebSocket servers: a publisher server and a consumer server. The publisher server receives messages from publishers and broadcasts them to all connected consumers, except the sender.
 
 ## Project Structure
 
 ```
-websocket-server/
+tiny-little-pub-sub/
+├── README.md
 ├── consumerServer.ts
+├── eslint.config.mjs
+├── nodemon.json
+├── package-lock.json
+├── package.json
 ├── publisherServer.ts
 ├── server.ts
-├── utils.ts
-├── .env
-└── README.md
+├── tsconfig.json
+└── utils.ts
 ```
 
 - `consumerServer.ts`: Contains the logic for the consumer WebSocket server.
@@ -36,18 +40,18 @@ graph TD;
 
 ### Publisher Server
 
-The publisher server listens on port 8081 and accepts connections from clients that want to send messages. When a message is received from a publisher, it is broadcast to all connected consumers, except the sender. This server is responsible for receiving and distributing messages to consumers.
+The publisher server listens on given publisher port (e.g. 8081) and accepts connections from clients that want to send messages. When a message is received from a publisher, it is broadcast to all connected consumers, except the sender. This server is responsible for receiving and distributing messages to consumers.
 
 ### Consumer Server
 
-The consumer server listens on port 8080 and accepts connections from clients that want to receive messages. When a message is received from a publisher, it is sent to all connected consumers. This server is responsible for handling incoming connections from consumers and delivering messages to them.
+The consumer server listens on given consumer port (e.g. 8080) and accepts connections from clients that want to receive messages. When a message is received from a publisher, it is sent to all connected consumers. This server is responsible for handling incoming connections from consumers and delivering messages to them.
 
 ## Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/websocket-server.git
-   cd websocket-server
+   git clone https://github.com/ardaorkin/tiny-little-pub-sub.git
+   cd tiny-little-pub-sub
    ```
 
 2. Install dependencies:
